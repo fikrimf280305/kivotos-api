@@ -1,0 +1,18 @@
+{
+  "name": "kivotos-api",
+  "version": "1.0.0",
+  "description": "REST API for Kivotos UI",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon src/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Fikri Muhammad Fadhilah",
+  "license": "MIT",
+  "devDependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.0",
+    "mongodb": "^6.9.0",
+    "nodemon": "^3.1.6"
+  }
+}
