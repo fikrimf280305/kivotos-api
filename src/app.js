@@ -25,7 +25,7 @@ app.use(cors(), (req, res, next) => {
 // Contoh route
 app.get('/api/v1', (req, res) => {
 
-    res.json({ status: 200, message: "OK", data: { school: [`http://${HOST}:${PORT}/api/v1/school`, `http://${HOST}:${PORT}/api/v1/school/:id`] } })
+    res.status(200).json({ status: 200, message: "OK", data: { school: [`http://${HOST}:${PORT}/api/v1/school`, `http://${HOST}:${PORT}/api/v1/school/:id`], club: [`http://${HOST}:${PORT}/api/v1/club`, `http://${HOST}:${PORT}/api/v1/club/:id`] } })
 
 })
 
@@ -39,17 +39,43 @@ app.get('/api/v1/school', async (req, res) => {
 
             await JSON.stringify(school)
 
-            res.json({ status: 200, message: "OK", data: { school } })
+            res.status(200).json({ status: 200, message: "OK", data: { school } })
 
         } else {
 
-            res.json({ status: 404, message: "NOT FOUND", data: null })
+            res.status(404).json({ status: 404, message: "NOT FOUND", data: null })
 
         }
 
     } catch (error) {
 
-        res.json({ status: 500, message: "INTERNAL SERVER ERROR", data: null })
+        res.status(500).json({ status: 500, message: "INTERNAL SERVER ERROR", data: null })
+
+    }
+
+})
+
+app.get('/api/v1/club', async (req, res) => {
+
+    try {
+
+        const club = await client.db('kivotos').collection('club').find({}, { projection: { _id: true, name: true } }).toArray()
+
+        if (club) {
+
+            await JSON.stringify(club)
+
+            res.status(200).json({ status: 200, message: "OK", data: { club } })
+
+        } else {
+
+            res.status(404).json({ status: 404, message: "NOT FOUND", data: null })
+
+        }
+
+    } catch (error) {
+
+        res.status(500).json({ status: 500, message: "INTERNAL SERVER ERROR", data: null })
 
     }
 
@@ -65,17 +91,43 @@ app.get('/api/v1/school/:id', async (req, res) => {
 
         if (schoolId) {
 
-            res.json({ status: 200, message: "OK", data: [schoolId] })
+            res.status(200).json({ status: 200, message: "OK", data: [schoolId] })
 
         } else {
 
-            res.json({ status: 404, message: "NOT FOUND", data: null })
+            res.status(404).json({ status: 404, message: "NOT FOUND", data: null })
 
         }
 
     } catch (error) {
 
-        res.json({ status: 500, message: "INTERNAL SERVER ERROR", data: null })
+        res.status(500).json({ status: 500, message: "INTERNAL SERVER ERROR", data: null })
+
+    }
+
+})
+
+app.get('/api/v1/club/:id', async (req, res) => {
+
+    try {
+
+        const id = parseInt(req.params.id)
+
+        const clubId = await client.db('kivotos').collection('club').findOne({ _id: id })
+
+        if (clubId) {
+
+            res.status(200).json({ status: 200, message: "OK", data: [clubId] })
+
+        } else {
+
+            res.status(404).json({ status: 404, message: "NOT FOUND", data: null })
+
+        }
+
+    } catch (error) {
+
+        res.status(500).json({ status: 500, message: "INTERNAL SERVER ERROR", data: null })
 
     }
 
@@ -83,7 +135,7 @@ app.get('/api/v1/school/:id', async (req, res) => {
 
 app.use((req, res, next) => {
 
-    res.json({ status: 404, message: "NOT FOUND", data: null })
+    res.status(404).json({ status: 404, message: "NOT FOUND", data: null })
 
     next()
 
