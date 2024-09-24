@@ -3,7 +3,7 @@ import 'dotenv/config'
 
 const DATABASE_URL = process.env.DATABASE_URL
 
-const client = new MongoClient(DATABASE_URL)
+export const client = new MongoClient(DATABASE_URL)
 
 export const getSchool = async (req, res) => {
     try {
