@@ -2,9 +2,9 @@
   "name": "kivotos-api",
   "version": "1.0.0",
   "description": "REST API for Kivotos UI",
-  "main": "app.js",
+  "main": "src/app.mjs",
   "scripts": {
-    "start": "nodemon src/app.js",
+    "start": "nodemon src/app.mjs",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Fikri Muhammad Fadhilah",
