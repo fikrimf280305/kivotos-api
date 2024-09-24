@@ -3,6 +3,7 @@ import 'dotenv/config'
 import cors from 'cors'
 import { getSchool, getSchoolById } from './school.mjs'
 import { getClub, getClubById } from './club.mjs'
+import { getCharacter, getCharacterById } from './character.mjs'
 
 const HOST = process.env.HOST
 const PORT = process.env.PORT
@@ -27,6 +28,11 @@ app.get('/api/v1', (req, res) => {
                 club: [
                     `http://${HOST}:${PORT}/api/v1/club`,
                     `http://${HOST}:${PORT}/api/v1/club/:id`
+                ],
+
+                character: [
+                    `http://${HOST}:${PORT}/api/v1/character`,
+                    `http://${HOST}:${PORT}/api/v1/character/:id`
                 ]
             }
         })
@@ -46,6 +52,10 @@ app.get('/api/v1/school/:id', getSchoolById)
 app.get('/api/v1/club', getClub)
 
 app.get('/api/v1/club/:id', getClubById)
+
+app.get('/api/v1/character', getCharacter)
+
+app.get('/api/v1/character/:id', getCharacterById)
 
 app.use((req, res, next) => {
     try {
