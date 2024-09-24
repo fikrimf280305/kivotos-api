@@ -2,6 +2,7 @@ import express from 'express'
 import 'dotenv/config'
 import cors from 'cors'
 import { getSchool, getSchoolById } from './school.mjs'
+import { getClub, getClubById } from './club.mjs'
 
 const HOST = process.env.HOST
 const PORT = process.env.PORT
@@ -41,6 +42,10 @@ app.get('/api/v1', (req, res) => {
 app.get('/api/v1/school', getSchool)
 
 app.get('/api/v1/school/:id', getSchoolById)
+
+app.get('/api/v1/club', getClub)
+
+app.get('/api/v1/club/:id', getClubById)
 
 app.use((req, res, next) => {
     try {
