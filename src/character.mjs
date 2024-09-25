@@ -36,7 +36,7 @@ export const getCharacter = async (req, res) => {
 
 export const getCharacterById = async (req, res) => {
     try {
-        const characterId = await parseInt(req.params.id)
+        const characterId = parseInt(req.params.id)
 
         const character = await client.db('kivotos').collection('character').findOne({
             "_id": characterId
